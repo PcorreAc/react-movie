@@ -6,14 +6,13 @@ import "./SliderMovies.scss";
 
 function SliderMovies(props) {
   const { movies } = props;
-
   if (movies.loading || !movies.result) {
     return <Loading />;
   }
 
   const { results } = movies.result;
   return (
-    <Carousel autplay className="slider-movies">
+    <Carousel autoplay className="slider-movies">
       {results.map((movie) => (
         <Movie key={movie.id} movie={movie} />
       ))}

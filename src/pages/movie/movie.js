@@ -12,7 +12,7 @@ import "./movie.scss";
 function Movie() {
   const { id } = useParams();
   const movieInfo = useFetch(
-    `${URL_API}movie/${id}?api_key=${API}&language=es-ES`
+    `${URL_API}movie/${id}?api_key=${API}&language=es-MX`
   );
 
   if (movieInfo.loading || !movieInfo.result) {
@@ -30,6 +30,7 @@ function RenderMovie(props) {
   } = props;
 
   const backdropPath = `https://image.tmdb.org/t/p/original${backdrop_path}`;
+
   return (
     <div
       className="movie"
@@ -61,13 +62,12 @@ function MovieInfo(props) {
 
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const videoMovie = useFetch(
-    `${URL_API}movie/${id}/videos?api_key=${API}&language=es-ES`
+    `${URL_API}movie/${id}/videos?api_key=${API}&language=es-MX`
   );
 
   const openModal = () => setIsVisibleModal(true);
-  const closeModal = () => setIsVisibleModal(false);
-  //Por resolver
-  const removeStyleModalTag = () => {
+  const closeModalAndModalStyleTag = () => {
+    setIsVisibleModal(false);
     const remover = document.querySelector("style[rc-util-key]");
     remover.parentElement.removeChild(remover);
   };
@@ -84,8 +84,8 @@ function MovieInfo(props) {
               videoKey={videoMovie.result.results[0].key}
               videoPlatform={videoMovie.result.results[0].site}
               isOpen={isVisibleModal}
-              close={closeModal}
-              afterClose={removeStyleModalTag}
+              close={closeModalAndModalStyleTag}
+              afterClose={closeModalAndModalStyleTag}
             />
           </>
         );
