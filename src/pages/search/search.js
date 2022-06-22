@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Input } from "antd";
 import { useNavigate, useLocation } from "react-router";
+//import debounce from "lodash.debounce";
 import queryString from "query-string";
 import MovieCatalog from "../../components/MovieCatalog";
 import Footer from "../../components/Footer";
@@ -18,7 +19,7 @@ const withRouter = (Component) => {
 };
 
 function Search(props) {
-  console.log(props.history);
+  //console.log(props.history);
   const { location, history } = props;
   const [movieList, setMovieList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -40,6 +41,9 @@ function Search(props) {
       }
     })();
   }, [location.search]);
+
+  /* const updateQuery = e=> setSearchValue(e?.target?.value)
+const debounceOnChange = debounce(updateQuery, 300) */
 
   const onChangeSearch = (e) => {
     const urlParams = queryString.parse(location.search);
